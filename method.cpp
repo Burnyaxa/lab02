@@ -1,3 +1,5 @@
+#include "method.h"
+
 vector <string> charTOvecstring (char*argv[])
 {
 	vector <string> str;
