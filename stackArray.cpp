@@ -1,6 +1,6 @@
 #include "stackArray.h"
 
-void stack::push(const char value){
+void stack::push(const string value){
 	last++;
 	if (last == size){
 		resizeArray();
@@ -8,13 +8,13 @@ void stack::push(const char value){
 	data[last] = value;
 }
 
-bool stack::pop(char &out){
+bool stack::pop(string &out){
 	if (last == -1) return false;
 	out = this->data[last--];
 	return true;
 }
 
-bool stack::top(char &out){
+bool stack::top(string &out){
 	if (last == -1) return false;
 	out = data[last];
 	return true;
@@ -26,14 +26,14 @@ bool stack::isEmpty(){
 }
 
 void stack::clear(){
-	char temp;
+	string temp;
 	while (!isEmpty()){
 		pop(temp);
 	}
 }
 
 void stack::resizeArray(){
-	char *newData = new char[size + 10];
+	string *newData = new string[size + 10];
 	for (int i = 0; i < size; i++){
 		newData[i] = data[i];
 	}
