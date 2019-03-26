@@ -26,4 +26,5 @@ public:
 };
 
 string ctos(char ch);
-string shuntingYard(string row);
+int calculate(int first, int second, char operation);
+int shuntingYard(string row);
