@@ -1,6 +1,6 @@
 #include "shunting-yard.h"
-//#include "stackArray.h"
-#include <stack>
+#include "stackArray.h"
+
 
 string ctos(char ch){
 	stringstream ss;
@@ -33,61 +33,54 @@ int calculate(int first, int second, char operation){
 int shuntingYard(string row){
 	stack <int> output;
 	stack <char> oper;
-	string token, integer, temp, out;
+	string token, strInteger, temp, out;
 	int first, second, result;
-	bool bracket;
 	for (int i = 0; i < row.size(); i++){
 		token = row[i];
 		if (isdigit(token[0])){
-			integer += row[i];
+			strInteger += row[i];
 			if (i == row.size() - 1){
-				output.push(stoi(integer));
-				integer.clear();
+				output.push(stoi(strInteger));
+				strInteger.clear();
 			}
 			continue;
 		}
-		if (!isdigit(token[0]) && integer.size()){
-			output.push(stoi(integer));
-			integer.clear();
+		if (!isdigit(token[0]) && strInteger.size()){
+			output.push(stoi(strInteger));
+			strInteger.clear();
+		}
+		if (token[0] == '-' && ((output.isEmpty() && oper.isEmpty()) || (!isdigit(row[i -1]) && oper.top(temp[0]) && (temp[0] == '(')))){
+			strInteger += token;
+			continue;
 		}
 		if (!isdigit(token[0]) && !isspace(token[0])){
 			if (token[0] == '('){
 				oper.push(token[0]);
-				bracket = 1;
 				continue;
 			}
 			if (token[0] == ')'){
-				while (bracket){
-					if (oper.top() = '('){
-						bracket = 0;
-						oper.pop();
-						break;
-					}
-					out = oper.top();
-					oper.pop();
-					second = output.top();
-					output.pop();
-					first = output.top();
-					output.pop();
+				while (oper.top(temp[0]) && temp[0] != '('){
+					oper.pop(out[0]);
+					output.pop(second);
+					output.pop(first);
 					output.push(calculate(first, second, out[0]));
+				}
+				if (oper.top(temp[0]) && temp[0] == '('){
+					oper.pop(temp[0]);
 				}
 				continue;
 			}
-			if (oper.empty()){
+			if (oper.isEmpty()){
 				oper.push(token[0]);
 			}
 			else{
-				//oper.top(temp);
 				operation current(token[0]);
-				//operation prev(temp[0]);
-				operation prev(oper.top());
+				oper.top(temp[0]);
+				operation prev(temp[0]);
 				if (prev.getPriority() > current.getPriority()){
-					out = oper.top();
-					oper.pop();
-					second = output.top();
-					output.pop();
-					first = output.top();
-					output.pop();
+					oper.pop(out[0]);
+					output.pop(second);
+					output.pop(first);
 					output.push(calculate(first, second, out[0]));
 					oper.push(token[0]);
 				}
@@ -97,16 +90,14 @@ int shuntingYard(string row){
 			}
 		}
 	}
-	while (!oper.empty()){
-		out = oper.top();
-		oper.pop();
-		second = output.top();
-		output.pop();
-		first = output.top();
-		output.pop();
+
+	while (!oper.isEmpty()){
+		oper.pop(out[0]);
+		output.pop(second);
+		output.pop(first);
 		output.push(calculate(first, second, out[0]));
 	}
-	result = output.top();
-	output.pop();
+
+	output.pop(result);
 	return result;
 }

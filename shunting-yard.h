@@ -1,5 +1,6 @@
 #include <sstream>
 #include <string>
+#include "stackArray.h"
 using namespace std;
 
 class operation{
