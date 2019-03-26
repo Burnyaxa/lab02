@@ -1,15 +1,6 @@
 #include "shunting-yard.h"
 #include "stackArray.h"
 
-
-string ctos(char ch){
-	stringstream ss;
-	string target;
-	ss << ch;
-	ss >> target;
-	return target;
-}
-
 int calculate(int first, int second, char operation){
 	switch (operation){
 	case '+':
@@ -35,8 +26,10 @@ int shuntingYard(string row){
 	stack <char> oper;
 	string token, strInteger, temp, out;
 	int first, second, result;
+
 	for (int i = 0; i < row.size(); i++){
 		token = row[i];
+
 		if (isdigit(token[0])){
 			strInteger += row[i];
 			if (i == row.size() - 1){
@@ -45,14 +38,17 @@ int shuntingYard(string row){
 			}
 			continue;
 		}
+
 		if (!isdigit(token[0]) && strInteger.size()){
 			output.push(stoi(strInteger));
 			strInteger.clear();
 		}
+
 		if (token[0] == '-' && ((output.isEmpty() && oper.isEmpty()) || (!isdigit(row[i -1]) && oper.top(temp[0]) && (temp[0] == '(')))){
 			strInteger += token;
 			continue;
 		}
+
 		if (!isdigit(token[0]) && !isspace(token[0])){
 			if (token[0] == '('){
 				oper.push(token[0]);
@@ -77,6 +73,7 @@ int shuntingYard(string row){
 				operation current(token[0]);
 				oper.top(temp[0]);
 				operation prev(temp[0]);
+
 				if (prev.getPriority() > current.getPriority()){
 					oper.pop(out[0]);
 					output.pop(second);

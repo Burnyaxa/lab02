@@ -7,6 +7,7 @@ struct stack{
 	T *data;
 	int size;
 	int last;
+
 	stack(int initialSize = 10){
 		last = -1;
 		size = initialSize;
@@ -20,6 +21,7 @@ struct stack{
 		}
 		data[last] = value;
 	}
+
 	void resizeArray(){
 		T *newData = new T[size * size];
 		for (int i = 0; i < size; i++){
@@ -29,20 +31,24 @@ struct stack{
 		delete[] data;
 		data = newData;
 	}
+
 	bool pop(T &out){
 		if (last == -1) return false;
 		out = this->data[last--];
 		return true;
 	}
+
 	bool top(T &out){
 		if (last == -1) return false;
 		out = data[last];
 		return true;
 	}
+
 	bool isEmpty(){
 		if (last == -1) return true;
 		return false;
 	}
+
 	void clear(){
 		T temp;
 		while (!isEmpty()){
