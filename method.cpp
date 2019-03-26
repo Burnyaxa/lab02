@@ -11,12 +11,12 @@ vector <string> charTOvecstring (char*argv[])
 
 string cmdString(int argc, char*argv[])
 {
-	string str; int i = 1;
-	do
+	string str;
+	for(int i = 1; i < argc; i++)
 	{
 		string a(argv[i]);
 		str = str + a + " ";
-		i++;
-	} while (i < argc);
+	}
+	
 	return str;
 }
