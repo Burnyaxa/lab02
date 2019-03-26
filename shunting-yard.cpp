@@ -35,11 +35,15 @@ int shuntingYard(string row){
 	stack <char> oper;
 	string token, integer, temp;
 	int first, second;
-	char out;
+	string out;
 	for (int i = 0; i < row.size(); i++){
 			token = row[i];
 			if (isdigit(token[0])){
 				integer += row[i];
+				if (i = row.size() - 1){
+					output.push(stoi(integer));
+					integer.clear();
+				}
 				continue;
 			}
 			if (!isdigit(token[0]) && integer.size()){
@@ -62,7 +66,7 @@ int shuntingYard(string row){
 						output.pop();
 						first = output.top();
 						output.pop();
-						output.push(calculate(first, second, out));
+						output.push(calculate(first, second, out[0]));
 						oper.push(token[0]);
 					}
 					else{
@@ -78,9 +82,9 @@ int shuntingYard(string row){
 		output.pop();
 		first = output.top();
 		output.pop();
-		output.push(calculate(first, second, out));
+		output.push(calculate(first, second, out[0]));
 	}
 	out = output.top();
 	output.pop();
-	return (int)out;
+	return stoi(out);
 }
