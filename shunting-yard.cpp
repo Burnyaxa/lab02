@@ -43,11 +43,12 @@ int shuntingYard(string row){
 			output.push(stoi(strInteger));
 			strInteger.clear();
 		}
-
-		if (token[0] == '-' && ((output.isEmpty() && oper.isEmpty()) || (!isdigit(row[i -1]) && oper.top(temp[0]) && (temp[0] == '(')))){
+		
+		if (token[0] == '-' && ((output.isEmpty() && oper.isEmpty()) || (!isdigit(row[i -1]) && row[i - 1] != ')' && oper.top(temp[0]) && temp[0] == '(') )){
 			strInteger += token;
 			continue;
 		}
+		
 
 		if (!isdigit(token[0]) && !isspace(token[0])){
 			if (token[0] == '('){
@@ -69,12 +70,11 @@ int shuntingYard(string row){
 			if (oper.isEmpty()){
 				oper.push(token[0]);
 			}
-			else{
+			else if(oper.top(temp[0]) && temp[0] != '('){
 				operation current(token[0]);
 				oper.top(temp[0]);
 				operation prev(temp[0]);
-
-				if (prev.getPriority() > current.getPriority()){
+				if (prev.getPriority() >= current.getPriority()){
 					oper.pop(out[0]);
 					output.pop(second);
 					output.pop(first);
@@ -84,6 +84,10 @@ int shuntingYard(string row){
 				else{
 					oper.push(token[0]);
 				}
+
+			}
+			else if (oper.top(temp[0]) && temp[0] == '('){
+				oper.push(token[0]);
 			}
 		}
 	}
