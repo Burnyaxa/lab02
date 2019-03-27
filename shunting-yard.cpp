@@ -21,15 +21,6 @@ int calculate(int first, int second, char operation){
 	}
 }
 
-void deleteSpaceBars(string &row){
-	for (int i = 0; i < row.size(); i++){
-		if (row[i] == ' '){
-			row.erase(i, 1);
-			i--;
-		}
-	}
-}
-
 int shuntingYard(string row){
 	stack <int> output;
 	stack <char> oper;
@@ -61,7 +52,7 @@ int shuntingYard(string row){
 		}
 		
 
-		if (!isdigit(token[0])){
+		if (!isdigit(token[0]) && !isspace(token[0])){
 			if (token[0] == '('){
 				oper.push(token[0]);
 				counter = 0;
