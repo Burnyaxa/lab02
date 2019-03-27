@@ -26,6 +26,7 @@ int shuntingYard(string row){
 	stack <char> oper;
 	string token, strInteger, temp, out;
 	int first, second, result;
+	int counter = 0;
 
 	for (int i = 0; i < row.size(); i++){
 		token = row[i];
@@ -44,7 +45,8 @@ int shuntingYard(string row){
 			strInteger.clear();
 		}
 		
-		if (token[0] == '-' && ((output.isEmpty() && oper.isEmpty()) || (!isdigit(row[i -1]) && row[i - 1] != ')' && oper.top(temp[0]) && temp[0] == '(') )){
+		if (token[0] == '-' && counter == 0 && ((output.isEmpty() && oper.isEmpty()) || (!isdigit(row[i -1]) && row[i - 1] != ')' && oper.top(temp[0]) && temp[0] == '(') )){
+			counter++;
 			strInteger += token;
 			continue;
 		}
@@ -53,6 +55,7 @@ int shuntingYard(string row){
 		if (!isdigit(token[0]) && !isspace(token[0])){
 			if (token[0] == '('){
 				oper.push(token[0]);
+				counter = 0;
 				continue;
 			}
 			if (token[0] == ')'){
