@@ -27,4 +27,5 @@ public:
 };
 
 int calculate(int first, int second, char operation);
+void deleteSpaceBars(string &row);
 int shuntingYard(string row);
