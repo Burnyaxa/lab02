@@ -69,3 +69,13 @@ string ConvDoub (string &line)
 	}
 	return line;
 }
+
+
+int readOper(char token)
+{
+	if (token == '+') { return 1; }
+	if (token == '-') { return 2; }
+	if (token == '*') { return 3; }
+	if (token == '/') { return 4; }
+	return 0;
+}
